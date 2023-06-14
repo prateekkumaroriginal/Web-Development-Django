@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block page_title %}WordGod{% endblock page_title %}
+
+{% block content %}
+
+    <div class="container">
+        <h1 class="mb-5 mt-3">Welcome to Word God</h1>
+        <h2>Enter your text below</h2>
+
+        <form action={% url 'analyze' %} method='get'>
+            <textarea name="raw_text" id="" cols="30" rows="10" style="width: 900px; height: 255px;"></textarea><br>
+
+            <div class="container row my-3">
+                <div class="col-2 px-0">
+                <input type="checkbox" name="removepunc" id="removepunc"></input>
+                <label for="removepunc">Remove Punctuation</label>
+                </div>
+                <div class="col-2 px-0">
+                <input type="checkbox" name="capfirst" id="capfirst"></input>
+                <label for="capfirst">Capitalize First</label>
+                </div>
+                <div class="col-2 px-0">
+                <input type="checkbox" name="fullcaps" id="fullcaps"></input>
+                <label for="fullcaps">Capitalize All</label>
+                </div>
+                <div class="col-2 px-0">
+                <input type="checkbox" name="newlineremove" id="newlineremove"></input>
+                <label for="newlineremove">Remove New Lines</label>
+                </div>
+                <div class="col-2 px-0">
+                <input type="checkbox" name="extraspace" id="extraspace"></input>
+                <label for="extraspace">Remove Extra Spaces</label>
+                </div>
+            </div>
+
+            <br>
+            <div class="container">
+            <button type="submit" class="btn btn-primary">Analyze text</button>
+            </div>
+        </form>
+    </div>
+{% endblock content %}
