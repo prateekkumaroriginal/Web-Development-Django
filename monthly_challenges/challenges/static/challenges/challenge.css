@@ -1,0 +1,18 @@
+h1,h3{
+    color: aliceblue;   
+    text-align: center;
+}
+
+h1{
+    font-size: 2rem;
+    margin: 3rem;
+    font-weight: normal;
+    color: #f2a827;
+}
+h3{
+    font-size: 3rem;
+    font-weight: bold;
+}
+.msg_404{
+    color: red;
+}
