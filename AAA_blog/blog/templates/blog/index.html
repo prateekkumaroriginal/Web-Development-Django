@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block page_title %}MyBlog{% endblock page_title %}
+
+{% block css_files %}
+<link rel="stylesheet" href={% static 'blog/index.css' %}>
+<link rel="stylesheet" href={% static 'blog/post.css' %}>
+{% endblock css_files %}
+
+{% block content %}
+<section id="welcome">
+    <header>
+        <img src={% static 'blog/images/me.jpg' %} alt="Profile image">
+        <h2>Prateek's Blog</h2>
+    </header>
+    <p>Hi, I am Prateek and I love to talk about sports, games and technology, and sports' and games' technology.</p>
+
+</section>
+
+<section id="latest-posts">
+    <h2>My Latest Thoughts</h2>
+    <ul>
+        {% for post in posts %}
+        {% include 'blog/includes/post.html' %}
+        {% endfor %}
+    </ul>
+</section>
+
+<section id="about">
+    <h2>What I do?</h2>
+    <p>I like Lorem ipsum, dolor sit amet consectetur adipisicing elit. Adipisci aut vero accusantium similique inventore vel architecto. Possimus tempora distinctio quasi in odio enim neque magni eveniet veniam assumenda! Nostrum autem dolorem deserunt inventore alias.</p>
+    <p>My goal is Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci, modi eligendi natus explicabo aperiam est aliquid cumque? Esse nisi dolorem suscipit optio? Eos?</p>
+</section>
+{% endblock content %}
