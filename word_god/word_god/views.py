@@ -1,5 +1,6 @@
 from django.http import HttpResponse, HttpResponseNotFound
 from django.shortcuts import render
+from django.views.decorators.csrf import csrf_protect
 
 punctuation_symbols = [
     '!', '"', '#', '$', '%', '&', "'", '(', ')', '*', '+', ',', '-', '.', '/',
@@ -12,12 +13,12 @@ def index(request):
 
 
 def analyze(request):
-    text = request.GET.get('raw_text', 'default')
-    removepunc = request.GET.get('removepunc', 'off')
-    capfirst = request.GET.get('capfirst', 'off')
-    fullcaps = request.GET.get('fullcaps', 'off')
-    newlineremove = request.GET.get('newlineremove', 'off')
-    extraspace = request.GET.get('extraspace', 'off')
+    text = request.POST.get('raw_text', 'default')
+    removepunc = request.POST.get('removepunc', 'off')
+    capfirst = request.POST.get('capfirst', 'off')
+    fullcaps = request.POST.get('fullcaps', 'off')
+    newlineremove = request.POST.get('newlineremove', 'off')
+    extraspace = request.POST.get('extraspace', 'off')
 
     if removepunc == "on":
         text = text.lower()
@@ -31,6 +32,7 @@ def analyze(request):
 
     if newlineremove == "on":
         text = text.replace('\n', ' ')
+        text = text.replace('\r', ' ')
 
     if extraspace == "on":
         while '  ' in text:
