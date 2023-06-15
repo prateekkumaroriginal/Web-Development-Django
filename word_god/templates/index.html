@@ -8,7 +8,7 @@
         <h1 class="mb-5 mt-3">Welcome to Word God</h1>
         <h2>Enter your text below</h2>
 
-        <form action={% url 'analyze' %} method='get'>
+        <form action={% url 'analyze' %} method='post'> {% csrf_token %}
             <textarea name="raw_text" id="" cols="30" rows="10" style="width: 900px; height: 255px;"></textarea><br>
 
             <div class="container row my-3">
