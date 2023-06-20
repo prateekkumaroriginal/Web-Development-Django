@@ -2,24 +2,57 @@
 
 {% load static %}
 
-{% block page_title %}{{identified_post.title}}{% endblock page_title %}
+{% block page_title %}{{post.title}}{% endblock page_title %}
 
 {% block css_files %}
 <link rel="stylesheet" href={% static 'blog/post-detail.css' %}>
 {% endblock css_files %}
 
 {% block content %}
+
+{% if comment_form.errors %}
+<div id="alert">
+    <h2>Saving the comment failed!</h2>
+    <p>Please try again.</p>
+    <a href="#comment-form">Fix!</a>
+</div>
+{% endif %}
+
 <section id="summary">
-    <h2>{{identified_post.title}}</h2>
-    <div id="tags">{% for tag in post_tags %}<span class="tag">{{tag}}</span> {% endfor %}</div>
+    <h2>{{post.title}}</h2>
+    <div id="tags">{% for tag in post.tags.all %}<span class="tag">{{tag}}</span> {% endfor %}</div>
     <article>
-        <img src={% static 'blog/images/'|add:identified_post.image_name %} alt={{identified_post.title}}>
-        <address>By <a href="mailto:{{identified_post.author.email_address}}">{{identified_post.author|title}}</a></address>
-        <div>Last updated on <time>{{identified_post.date|date:"jS F, Y"}}</time></div>
+        <img src={{post.image.url}} alt={{post.title}}>
+        <address>By <a href="mailto:{{post.author.email_address}}">{{post.author|title}}</a></address>
+        <div>Last updated on <time>{{post.date|date:"jS F, Y"}}</time></div>
     </article>
 </section>
 
 <main>
-    <p>{{identified_post.content|linebreaks}}</p>
+    <p>{{post.content|linebreaks}}</p>
 </main>
+
+
+<section id="comment-section">
+    <form action="{% url 'post-detail' post.slug %}" id="comment-form" method="post"> {% csrf_token %}
+        <h2>Comment</h2>
+        {% for field in comment_form %}
+        <div class="form-control {% if field.errors %}invalid{% endif %}">
+            {{field.label}}
+            {{field}}
+            {{field.errors}}
+        </div>
+        {% endfor %}
+        <button type="submit">Comment</button>
+    </form>
+</section>
+
+<div id="comments">
+    {% for comment in comments %}
+        <li class="form-control">
+            <h3>{{comment.username}}</h3>
+            <p>{{comment.text}}</p>
+        </li>
+    {% endfor %}
+</div>
 {% endblock content %}
